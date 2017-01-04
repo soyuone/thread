@@ -3,7 +3,7 @@ package others;
 public class DaemonThread extends Thread {
 
 	// 后台线程(Daemon Thread)：在后台运行，它的任务是为其他的线程提供服务，如JVM的垃圾回收线程，后台线程有个特征：如果所有前台线程死亡，后台线程会自动死亡
-	// 调用Thread对象的setDaemon(true)方法可以将指定线程设置成后台线程
+	// 调用Thread对象的setDaemon(true)方法可以将指定线程设置成后台线程.
 
 	@Override
 	public void run() {
