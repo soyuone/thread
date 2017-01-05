@@ -3,6 +3,8 @@ package account.lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 //同步锁
+//Lock是控制多个线程对共享资源进行访问的工具，通常锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象加锁，线程开始访问共享资源之前应先获得Lock对象
+//某些锁可能允许对共享资源的并发访问，如ReadWriteLock
 //使用Lock与使用同步方法类似，只是使用Lock时显式使用Lock对象作为同步锁，而使用同步方法时系统隐式使用当前对象作为同步监视器，都符合：加锁-修改-释放锁
 public class AccountLock {
 
@@ -36,22 +38,23 @@ public class AccountLock {
 		try {
 			// 账户余额大于取钱数目
 			if (balance >= drawAmount) {
-				System.out.println(Thread.currentThread().getName()
-						+ "取钱成功，吐出钞票：" + drawAmount);
+				System.out.println(Thread.currentThread().getName() + "取钱成功，吐出钞票：" + drawAmount);
 
 				try {
 					Thread.sleep(1);
-				} catch (InterruptedException e) {
+				}
+				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
 				balance -= drawAmount;
 				System.out.println("余额为：" + balance);
-			} else {
-				System.out.println(Thread.currentThread().getName()
-						+ "取钱失败，余额不足.");
 			}
-		} finally {
+			else {
+				System.out.println(Thread.currentThread().getName() + "取钱失败，余额不足.");
+			}
+		}
+		finally {
 			// 修改完成，释放锁
 			lock.unlock();
 		}
@@ -61,8 +64,7 @@ public class AccountLock {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((accountNo == null) ? 0 : accountNo.hashCode());
+		result = prime * result + ((accountNo == null) ? 0 : accountNo.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(balance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -81,10 +83,10 @@ public class AccountLock {
 		if (accountNo == null) {
 			if (other.accountNo != null)
 				return false;
-		} else if (!accountNo.equals(other.accountNo))
+		}
+		else if (!accountNo.equals(other.accountNo))
 			return false;
-		if (Double.doubleToLongBits(balance) != Double
-				.doubleToLongBits(other.balance))
+		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
 			return false;
 		return true;
 	}
