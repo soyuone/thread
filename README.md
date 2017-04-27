@@ -1,2 +1,6 @@
-# thread
-a multi-thread project for learning.
+# thread - a learning project
+Thread.
+
+Callable.
+
+Runnable.
