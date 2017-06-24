@@ -4,7 +4,7 @@ public class SecondThread implements Runnable {
 
 	private int i;
 
-	// 重写run方法，run()方法同样是线程执行体
+	// 重写run()方法，run()方法同样是线程执行体
 	@Override
 	public void run() {
 		for (; i < 20; i++) {
