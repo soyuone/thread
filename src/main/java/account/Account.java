@@ -30,35 +30,26 @@ public class Account {
 		this.balance = balance;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((accountNo == null) ? 0 : accountNo.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(balance);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
+	// 加锁->修改->释放锁
+	public synchronized void draw(double drawAmount) {
+		// 账户余额大于取钱数目时
+		if (balance >= drawAmount) {
+			System.out.println(Thread.currentThread().getName() + "取钱成功，吐出钞票：" + drawAmount);
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Account other = (Account) obj;
-		if (accountNo == null) {
-			if (other.accountNo != null)
-				return false;
+			try {
+				Thread.sleep(1);
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			// 修改余额
+			balance -= drawAmount;
+			System.out.println("余额为：" + balance);
 		}
-		else if (!accountNo.equals(other.accountNo))
-			return false;
-		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
-			return false;
-		return true;
+		else {
+			System.out.println(Thread.currentThread().getName() + "取钱失败，余额不足.");
+		}
 	}
 
 }
