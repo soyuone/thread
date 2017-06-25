@@ -25,15 +25,15 @@ public class StartDead extends Thread {
 				// 创建并启动第一个线程
 				StartDead sd = new StartDead();
 				sd.setName("first：");
-				// 判断启动后线程的isAlive()值
+				// 判断线程处于新建状态时的isAlive()值
 				System.out.println(sd.isAlive());
 
 				sd.start();
 
-				// 判断启动后线程的isAlive()值
+				// 判断线程处于就绪状态时的isAlive()值
 				System.out.println(sd.isAlive());
 				// 再次调用start()，java.lang.IllegalThreadStateException异常
-				// sd.start();
+				sd.start();
 			}
 		}
 	}
